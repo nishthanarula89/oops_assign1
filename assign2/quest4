@@ -1,0 +1,21 @@
+#include <iostream>
+using namespace std;
+
+class Box {
+    int w, h;
+
+public:
+    void read() {
+        cin >> w >> h;
+    }
+
+    void area() {
+        cout << w * h << endl;
+    }
+};
+
+int main() {
+    Box b;
+    b.read();
+    b.area();
+}
