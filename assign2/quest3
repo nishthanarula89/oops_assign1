@@ -1,0 +1,19 @@
+#include <iostream>
+using namespace std;
+
+class Sample {
+    void hidden() {
+        cout << "Private function is called!" << endl;
+    }
+
+public:
+    void visible() {
+        cout << "Public function is called!" << endl;
+        hidden();
+    }
+};
+
+int main() {
+    Sample s;
+    s.visible();
+}
