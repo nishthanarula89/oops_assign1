@@ -1,0 +1,44 @@
+#include <iostream>
+using namespace std;
+
+class Bank {
+    long acc;
+    double bal;
+    long tid;
+    string type;
+    static long id;
+
+public:
+    Bank(long a,double b):acc(a),bal(b) {
+        tid=0;
+        type="None";
+    }
+
+    void transact(long to,long from,double amt) {
+        tid = ++id;
+        if(acc==from) {
+            bal -= amt;
+            type="Debit";
+        }
+        else if(acc==to) {
+            bal += amt;
+            type="Credit";
+        }
+    }
+
+    void show() {
+        cout<<acc<<endl<<bal<<endl<<tid<<endl<<type<<endl;
+    }
+};
+
+long Bank::id = 100;
+
+int main() {
+    Bank b[2] = {Bank(1,1000), Bank(2,2000)};
+
+    for(int i=0;i<2;i++)
+        b[i].transact(2,1,200);
+
+    for(int i=0;i<2;i++)
+        b[i].show();
+}
