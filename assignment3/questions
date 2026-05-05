@@ -1,0 +1,117 @@
+// q1
+#include <iostream>
+using namespace std;
+
+class Stud {
+    int r;
+    float m;
+public:
+    Stud(int a, float b) { r = a; m = b; }
+    void show() { cout << r << " " << m << endl; }
+};
+
+// q2
+class Y;
+
+class X {
+    int a;
+public:
+    X(int v) { a = v; }
+    friend void exch(X&, Y&);
+    friend int total(X, Y);
+    friend class Y;
+    void print() { cout << a << endl; }
+};
+
+class Y {
+    int b;
+public:
+    Y(int v = 0) { b = v; }
+    friend void exch(X&, Y&);
+    friend int total(X, Y);
+    void print() { cout << b << endl; }
+    void access(X obj) { cout << obj.a << endl; }
+};
+
+void exch(X &p, Y &q) {
+    int t = p.a;
+    p.a = q.b;
+    q.b = t;
+}
+
+int total(X p, Y q) {
+    return p.a + q.b;
+}
+
+class Rect {
+    float l, w;
+public:
+    void set(float x, float y) { l = x; w = y; }
+    float calc() { return l * w; }
+};
+
+inline int power3(int x) {
+    return x * x * x;
+}
+
+class Val {
+    int d;
+public:
+    Val(int v = 0) { d = v; }
+    void put(int v) { d = v; }
+    int get() { return d; }
+};
+
+Val incVal(Val v) {
+    v.put(v.get() + 10);
+    return v;
+}
+
+Val incRef(Val &v) {
+    v.put(v.get() + 20);
+    return v;
+}
+
+int main() {
+    Stud s(101, 85.5);
+    Stud* p = &s;
+    s.show();
+    p->show();
+
+    X o1(10);
+    Y o2(20);
+    o1.print();
+    o2.print();
+    exch(o1, o2);
+    o1.print();
+    o2.print();
+    cout << total(o1, o2) << endl;
+
+    Y obj;
+    obj.access(o1);
+
+    int n;
+    cin >> n;
+    Rect arr[n];
+    for(int i = 0; i < n; i++) {
+        float a, b;
+        cin >> a >> b;
+        arr[i].set(a, b);
+    }
+    for(int i = 0; i < n; i++) {
+        cout << arr[i].calc() << endl;
+    }
+
+    int num;
+    cin >> num;
+    cout << power3(num) << endl;
+
+    Val v1(5);
+    Val r1 = incVal(v1);
+    cout << v1.get() << " " << r1.get() << endl;
+
+    Val r2 = incRef(v1);
+    cout << v1.get() << " " << r2.get() << endl;
+
+    return 0;
+}
