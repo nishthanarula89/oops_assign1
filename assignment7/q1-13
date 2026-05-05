@@ -1,0 +1,254 @@
+#include <iostream>
+#include <cstring>
+#include <cmath>
+using namespace std;
+
+================= Q1 ================= 
+class BaseShape {
+public:
+    int x,y;
+    void setDim(int a,int b){ x=a; y=b; }
+    virtual void findArea()=0;
+};
+
+class RectA: public BaseShape{
+public:
+    void findArea(){ cout<<x*y<<" "; }
+};
+
+class TriA: public BaseShape{
+public:
+    void findArea(){ cout<<(x*y)/2<<" "; }
+};
+
+================= Q2 ================= 
+class AbstractShape{
+public:
+    virtual void info()=0;
+    virtual void calc()=0;
+};
+
+class CircleA: public AbstractShape{
+    float r;
+public:
+    CircleA(float v){ r=v; }
+    void info(){ cout<<"Circle\n"; }
+    void calc(){ cout<<3.14*r*r<<endl; }
+};
+
+class RectB: public AbstractShape{
+    float l,b;
+public:
+    RectB(float a,float c){ l=a;b=c; }
+    void info(){ cout<<"Rectangle\n"; }
+    void calc(){ cout<<l*b<<endl; }
+};
+
+class TriB: public AbstractShape{
+    float b,h;
+public:
+    TriB(float a,float c){ b=a;h=c; }
+    void info(){ cout<<"Triangle\n"; }
+    void calc(){ cout<<0.5*b*h<<endl; }
+};
+
+================= Q3 ================= /
+class TriangleCalc{
+public:
+    double area(double a,double b){ return 0.5*a*b; }
+    double area(double a){ return (sqrt(3)/4)*a*a; }
+    double area(double a,double b,bool){ return 0.5*b*sqrt(a*a-(b*b)/4); }
+};
+
+================= Q4 ================= 
+class PersonBase{
+public:
+    string n;
+    virtual void input()=0;
+    virtual void show()=0;
+};
+
+class EngA: public PersonBase{
+    string b;
+public:
+    void input(){ cin>>n>>b; }
+    void show(){ cout<<n<<" "<<b<<endl; }
+};
+
+class MedA: public PersonBase{
+    string s;
+public:
+    void input(){ cin>>n>>s; }
+    void show(){ cout<<n<<" "<<s<<endl; }
+};
+
+class SciA: public PersonBase{
+    string sub;
+public:
+    void input(){ cin>>n>>sub; }
+    void show(){ cout<<n<<" "<<sub<<endl; }
+};
+
+ ================= Q5 ================= 
+class Clock{
+    int h,m,s;
+public:
+    Clock(int a=0,int b=0,int c=0){ h=a;m=b;s=c; }
+    Clock operator+(Clock t){ return Clock(h+t.h,m+t.m,s+t.s); }
+    void print(){ cout<<h<<":"<<m<<":"<<s<<endl; }
+};
+
+ ================= Q6 ================= 
+class Text{
+    char data[100];
+public:
+    Text(){ data[0]='\0'; }
+    Text(const char* s){ strcpy(data,s); }
+    bool operator==(Text t){ return strcmp(data,t.data)==0; }
+    Text operator+(Text t){
+        Text temp;
+        strcpy(temp.data,data);
+        strcat(temp.data,t.data);
+        return temp;
+    }
+    void print(){ cout<<data<<endl; }
+};
+
+================= Q7 ================= 
+class MatrixA{
+    int a[2][2];
+public:
+    void read(){ for(int i=0;i<2;i++)for(int j=0;j<2;j++)cin>>a[i][j]; }
+    void show(){ for(int i=0;i<2;i++){for(int j=0;j<2;j++)cout<<a[i][j]<<" "; cout<<endl;} }
+    friend MatrixA operator*(MatrixA,MatrixA);
+};
+
+MatrixA operator*(MatrixA x,MatrixA y){
+    MatrixA t;
+    for(int i=0;i<2;i++)
+        for(int j=0;j<2;j++){
+            t.a[i][j]=0;
+            for(int k=0;k<2;k++)
+                t.a[i][j]+=x.a[i][k]*y.a[k][j];
+        }
+    return t;
+}
+
+================= Q8 ================= 
+class ArrayX{
+    int a[5];
+public:
+    void input(){ for(int i=0;i<5;i++)cin>>a[i]; }
+    int operator[](int i){ if(i<0||i>=5) return -1; return a[i]; }
+};
+
+================= Q9 ================= 
+class FunObj{
+public:
+    void operator()(int a,int b,int c){ cout<<a+b+c<<endl; }
+};
+
+ ================= Q10 ================= 
+class IOX{
+    int x;
+public:
+    friend istream& operator>>(istream& in,IOX& t){ return in>>t.x; }
+    friend ostream& operator<<(ostream& out,IOX& t){ return out<<t.x; }
+};
+
+ ================= Q11 ================= 
+class Convert1{
+    float x;
+public:
+    Convert1(float a){ x=a; }
+    void show(){ cout<<x<<endl; }
+};
+
+ ================= Q12 ================= 
+class Convert2{
+    float x;
+public:
+    Convert2(float a){ x=a; }
+    operator float(){ return x; }
+};
+
+ ================= Q13 ================= 
+class PolarA{
+public:
+    int r,t;
+    PolarA(int a,int b){ r=a;t=b; }
+};
+
+class CartA{
+    int x,y;
+public:
+    CartA(){}
+    CartA(PolarA p){
+        x=p.r*cos(p.t);
+        y=p.r*sin(p.t);
+    }
+    void show(){ cout<<x<<" "<<y<<endl; }
+};
+
+ ================= MAIN ================= 
+int main(){
+
+    // Q1
+    BaseShape *p;
+    RectA r; TriA t;
+    p=&r; p->setDim(10,20); p->findArea();
+    p=&t; p->setDim(10,20); p->findArea();
+    cout<<endl;
+
+    // Q2
+    AbstractShape *s;
+    CircleA c(5); RectB r2(10,4); TriB t2(6,3);
+    s=&c; s->info(); s->calc();
+    s=&r2; s->info(); s->calc();
+    s=&t2; s->info(); s->calc();
+
+    // Q3
+    TriangleCalc obj;
+    cout<<obj.area(6,4)<<endl;
+
+    // Q4
+    PersonBase* arr[3];
+    EngA e; MedA m; SciA sc;
+    arr[0]=&e; arr[1]=&m; arr[2]=&sc;
+
+    // Q5
+    Clock c1(5,15,34),c2(9,53,58);
+    (c1+c2).print();
+
+    // Q6
+    Text t1("Hello "),t22("World");
+    (t1+t22).print();
+
+    // Q7
+    MatrixA m1,m2,m3;
+    // input skipped for simplicity
+
+    // Q8
+    ArrayX a;
+
+    // Q9
+    FunObj f; f(1,2,3);
+
+    // Q10
+    IOX io;
+
+    // Q11
+    Convert1 c3=5.5; c3.show();
+
+    // Q12
+    Convert2 c4(7.5);
+    float x=c4;
+    cout<<x<<endl;
+
+    // Q13
+    PolarA p1(10,5);
+    CartA c5=p1;
+    c5.show();
+
+    return 0;
+}
