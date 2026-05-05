@@ -1,0 +1,180 @@
+#include <iostream>
+using namespace std;
+
+// q1
+class P1 {
+public:
+    void f1() { cout << "Base class" << endl; }
+};
+
+class P2 : public P1 {
+public:
+    void f2() { cout << "Derived class" << endl; }
+};
+
+// q2
+class Prot {
+protected:
+    int v = 10;
+};
+
+class UseProt : public Prot {
+public:
+    void show() { cout << v << endl; }
+};
+
+// q4 (types of inheritance)
+class A1 {
+public:
+    void a() { cout << "A" << endl; }
+};
+
+class B1 : public A1 {
+public:
+    void b() { cout << "B" << endl; }
+};
+
+class C1 {
+public:
+    void c() { cout << "C" << endl; }
+};
+
+class Multi : public A1, public C1 {};
+
+class Level2 : public B1 {
+public:
+    void d() { cout << "D" << endl; }
+};
+
+class H1 : public A1 {};
+class H2 : public A1 {};
+
+class Hybrid1 : public A1 {};
+class Hybrid2 : public A1 {};
+class Hybrid3 : public Hybrid1, public Hybrid2 {};
+
+// q4 (constructor/destructor)
+class ConBase {
+public:
+    ConBase() { cout << "Base C" << endl; }
+    ~ConBase() { cout << "Base D" << endl; }
+};
+
+class ConDer : public ConBase {
+public:
+    ConDer() { cout << "Der C" << endl; }
+    ~ConDer() { cout << "Der D" << endl; }
+};
+
+// q4 (Book/Textbook)
+class BookX {
+protected:
+    string t, a;
+    float p;
+public:
+    BookX(string x, string y, float z) { t = x; a = y; p = z; }
+    void show() { cout << t << endl << a << endl << p << endl; }
+};
+
+class Txt : public BookX {
+    string s;
+public:
+    Txt(string x, string y, float z, string q) : BookX(x,y,z) { s = q; }
+    void print() { show(); cout << s << endl; }
+};
+
+// q5
+class Veh {
+protected:
+    string mk, md;
+    int yr;
+public:
+    Veh(string x, string y, int z) { mk = x; md = y; yr = z; }
+    void showV() { cout << mk << endl << md << endl << yr << endl; }
+};
+
+class Tr : public Veh {
+protected:
+    int cap;
+public:
+    Tr(string x, string y, int z, int c) : Veh(x,y,z) { cap = c; }
+    void showT() { showV(); cout << cap << endl; }
+};
+
+class Ref : public Tr {
+    int temp;
+public:
+    Ref(string x, string y, int z, int c, int t) : Tr(x,y,z,c) { temp = t; }
+    void showR() { showT(); cout << temp << endl; }
+};
+
+// q6
+class PersonX {
+protected:
+    string n, ad;
+public:
+    PersonX(string x, string y) { n = x; ad = y; }
+    void p() { cout << n << endl << ad << endl; }
+};
+
+class StaffX : virtual public PersonX {
+protected:
+    int id;
+    string d;
+public:
+    StaffX(string x, string y, int i, string dep) : PersonX(x,y) { id = i; d = dep; }
+    void s() { p(); cout << id << endl << d << endl; }
+};
+
+class StudX : virtual public PersonX {
+protected:
+    int sid;
+    string g;
+public:
+    StudX(string x, string y, int i, string gr) : PersonX(x,y) { sid = i; g = gr; }
+    void st() { p(); cout << sid << endl << g << endl; }
+};
+
+class TA : public StaffX, public StudX {
+public:
+    TA(string x, string y, int i, string dep, int j, string gr)
+        : PersonX(x,y), StaffX(x,y,i,dep), StudX(x,y,j,gr) {}
+    void all() { s(); st(); }
+};
+
+int main() {
+    P1 b; P2 d;
+    b.f1(); d.f1(); d.f2();
+
+    UseProt u;
+    u.show();
+
+    B1 sb;
+    sb.a(); sb.b();
+
+    Multi m;
+    m.a(); m.c();
+
+    Level2 lv;
+    lv.a(); lv.b(); lv.d();
+
+    H1 h1; H2 h2;
+    h1.a(); h2.a();
+
+    Hybrid3 h;
+    h.Hybrid1::a();
+    h.Hybrid2::a();
+
+    ConDer cd;
+
+    Txt t("CPP","Bjarne",500,"CS");
+    t.print();
+
+    Ref r("Volvo","X",2022,20,-5);
+    r.showR();
+
+    TA obj("Ali","Lahore",1,"CS",2,"A");
+    obj.all();
+
+    return 0;
+}
