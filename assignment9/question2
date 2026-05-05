@@ -1,0 +1,21 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+void displayChars(ifstream &in) {
+    char ch;
+    int count = 1;
+
+    while(in.get(ch)) {
+        if(ch != ' ') {
+            cout << count++ << ". " << ch << endl;
+        }
+    }
+}
+
+int main() {
+    ifstream file("NOTES.txt");
+    displayChars(file);
+    file.close();
+    return 0;
+}
