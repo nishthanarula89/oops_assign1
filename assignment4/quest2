@@ -1,0 +1,38 @@
+#include <iostream>
+using namespace std;
+
+class Shape {
+    int l, w;
+public:
+    Shape(int x = 10, int y = 20) {
+        l = x;
+        w = y;
+    }
+
+    int calc() {
+        return l * w;
+    }
+
+    ~Shape() {
+        cout << "Destroyed" << endl;
+    }
+};
+
+int main() {
+    Shape arr[2];
+    int x, y;
+
+    for(int i = 0; i < 2; i++) {
+        cin >> x >> y;
+        arr[i] = Shape(x, y);
+        cout << arr[i].calc() << endl;
+
+        arr[i] = Shape(x);
+        cout << arr[i].calc() << endl;
+
+        arr[i] = Shape();
+        cout << arr[i].calc() << endl;
+    }
+
+    return 0;
+}
