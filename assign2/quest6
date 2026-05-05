@@ -1,0 +1,42 @@
+#include <iostream>
+using namespace std;
+
+int val = 100;
+
+class Test {
+    static int c;
+
+public:
+    void msg();
+
+    void show(int val) {
+        cout << val << endl;
+        cout << ::val << endl;
+    }
+
+    void count() {
+        c++;
+        cout << c << endl;
+    }
+};
+
+int Test::c = 0;
+
+void Test::msg() {
+    cout << "Outside function" << endl;
+}
+
+int main() {
+    Test t;
+
+    t.msg();
+
+    int val = 50;
+    t.show(val);
+
+    t.count();
+    t.count();
+
+    std::cout << "std usage" << std::endl;
+    std::cin.ignore();
+}
