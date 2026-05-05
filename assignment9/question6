@@ -1,0 +1,16 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main() {
+    fstream file("msg.txt", ios::in | ios::out);
+
+    file << "Hello World";
+    cout << file.tellp() << endl;
+
+    file.seekp(6);
+    file << "C++ ";
+
+    file.close();
+    return 0;
+}
