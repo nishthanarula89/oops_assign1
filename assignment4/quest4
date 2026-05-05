@@ -1,0 +1,87 @@
+#include <iostream>
+using namespace std;
+
+class Record {
+    int id;
+    float marks;
+    string name;
+
+public:
+    void take() {
+        cin >> id >> marks >> name;
+    }
+
+    void show() {
+        cout << id << endl;
+        cout << marks << endl;
+        cout << name << endl;
+    }
+
+    int getId() {
+        return id;
+    }
+};
+
+int main() {
+    int *n = new int;
+    cin >> *n;
+
+    Record *list = new Record[*n];
+
+    for(int i = 0; i < *n; i++) {
+        list[i].take();
+    }
+
+    int ch;
+
+    do {
+        cin >> ch;
+
+        if(ch == 1) {
+            Record *temp = new Record[*n + 1];
+            for(int i = 0; i < *n; i++) {
+                temp[i] = list[i];
+            }
+            temp[*n].take();
+            delete[] list;
+            list = temp;
+            (*n)++;
+        }
+
+        else if(ch == 2) {
+            int key;
+            cin >> key;
+            int i;
+            for(i = 0; i < *n; i++) {
+                if(list[i].getId() == key) break;
+            }
+            for(; i < *n - 1; i++) {
+                list[i] = list[i + 1];
+            }
+            (*n)--;
+        }
+
+        else if(ch == 3) {
+            int key;
+            cin >> key;
+            bool found = false;
+            for(int i = 0; i < *n; i++) {
+                if(list[i].getId() == key) {
+                    list[i].show();
+                    found = true;
+                    break;
+                }
+            }
+            if(!found) cout << "Not Found" << endl;
+        }
+
+        else if(ch == 4) {
+            for(int i = 0; i < *n; i++) {
+                list[i].show();
+            }
+        }
+
+    } while(ch != 5);
+
+    return 0;
+}
