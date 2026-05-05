@@ -1,0 +1,21 @@
+#include <iostream>
+using namespace std;
+
+class Sample {
+public:
+    Sample() {
+        cout << "Constructed" << endl;
+    }
+
+    ~Sample() {
+        cout << "Destroyed" << endl;
+    }
+};
+
+int main() {
+    Sample s1;
+    {
+        Sample s2;
+    }
+    return 0;
+}
