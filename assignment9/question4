@@ -1,0 +1,26 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main() {
+    string text;
+    getline(cin, text);
+
+    cout << text.size() << endl;
+
+    ofstream out("store.txt");
+    for(char c : text) {
+        out.put(c);
+    }
+    out.close();
+
+    ifstream in("store.txt");
+    char ch;
+
+    while(in.get(ch)) {
+        cout << ch;
+    }
+
+    in.close();
+    return 0;
+}
