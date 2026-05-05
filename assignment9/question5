@@ -1,0 +1,26 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main() {
+    fstream f("alpha.txt", ios::in | ios::out);
+
+    f.seekg(10);
+    char ch;
+    f >> ch;
+    cout << ch << endl;
+
+    f.seekp(4);
+    f << 'Z';
+
+    f.seekg(0, ios::end);
+    cout << f.tellg() << endl;
+
+    f.seekg(-1, ios::end);
+    char last;
+    f >> last;
+    cout << last;
+
+    f.close();
+    return 0;
+}
