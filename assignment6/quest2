@@ -1,0 +1,48 @@
+#include <iostream>
+using namespace std;
+
+class Entry {
+    string t, a, id;
+
+public:
+    Entry() { t="NA"; a="NA"; id="0"; }
+
+    Entry(string x, string y, string z) {
+        t=x; a=y; id=z;
+    }
+
+    Entry(const Entry &e) {
+        t=e.t; a=e.a; id=e.id;
+    }
+
+    void print() {
+        cout<<t<<endl<<a<<endl<<id<<endl;
+    }
+
+    bool erase(string x) {
+        if(id==x) {
+            t=""; a=""; id="";
+            return true;
+        }
+        return false;
+    }
+};
+
+int main() {
+    Entry arr[2] = {Entry("A","X","1"), Entry("B","Y","2")};
+
+    for(int i=0;i<2;i++) arr[i].print();
+
+    int n; cin>>n;
+    Entry *p = new Entry[n];
+
+    for(int i=0;i<n;i++) {
+        string t,a,id;
+        cin>>t>>a>>id;
+        p[i] = Entry(t,a,id);
+    }
+
+    for(int i=0;i<n;i++) p[i].print();
+
+    delete[] p;
+}
