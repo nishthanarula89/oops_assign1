@@ -1,0 +1,38 @@
+#include <iostream>
+using namespace std;
+
+class Learner {
+    string nm, deg, host;
+    int roll;
+    float gpa;
+
+    void modify() {
+        cin >> nm >> deg;
+    }
+
+public:
+    void input() {
+        cin >> nm >> roll >> deg >> host >> gpa;
+    }
+
+    void changeGPA() {
+        cin >> gpa;
+    }
+
+    void changeHost() {
+        cin >> host;
+    }
+
+    void show() {
+        cout << nm << endl << roll << endl << deg << endl << host << endl << gpa << endl;
+    }
+};
+
+int main() {
+    Learner a;
+    a.input();
+    a.show();
+    a.changeGPA();
+    a.changeHost();
+    a.show();
+}
