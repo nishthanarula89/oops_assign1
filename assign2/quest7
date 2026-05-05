@@ -1,0 +1,21 @@
+#include <iostream>
+using namespace std;
+
+namespace A {
+    int v = 10;
+    void print() {
+        cout << v << endl;
+    }
+}
+
+namespace B {
+    int v = 20;
+    void print() {
+        cout << v << endl;
+    }
+}
+
+int main() {
+    A::print();
+    B::print();
+}
