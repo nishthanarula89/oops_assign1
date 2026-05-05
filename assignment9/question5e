@@ -1,0 +1,18 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main() {
+    fstream f("data.txt");
+
+    f.seekg(10);
+    cout << f.tellg() << endl;
+
+    char ch;
+    while(f.get(ch)) {
+        cout << ch;
+    }
+
+    f.close();
+    return 0;
+}
