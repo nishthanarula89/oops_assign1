@@ -1,0 +1,34 @@
+#include <iostream>
+using namespace std;
+
+class Num {
+    double r,i;
+
+public:
+    Num(double x,double y){ r=x; i=y; }
+
+    Num(const Num &n){
+        r=n.r; i=n.i;
+    }
+
+    void show(){
+        cout<<r<<"+"<<i<<"i"<<endl;
+    }
+
+    friend void add(Num,Num);
+};
+
+void add(Num a, Num b){
+    cout<<(a.r+b.r)<<"+"<<(a.i+b.i)<<"i"<<endl;
+}
+
+int main(){
+    Num x(2,3), y(4,5);
+    Num z = x;
+
+    x.show();
+    y.show();
+    z.show();
+
+    add(x,y);
+}
