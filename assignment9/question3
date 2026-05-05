@@ -1,0 +1,17 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main() {
+    ifstream in("NOTES.txt");
+    ofstream out("duplicate.txt");
+
+    char ch;
+    while(in.get(ch)) {
+        out << ch;
+    }
+
+    in.close();
+    out.close();
+    return 0;
+}
