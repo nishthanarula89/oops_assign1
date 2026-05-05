@@ -1,0 +1,26 @@
+#include <iostream>
+using namespace std;
+
+class Box {
+    int l, b;
+public:
+    Box() { l = 0; b = 0; }
+    Box(int x) { l = x; b = x; }
+    Box(int x, int y) { l = x; b = y; }
+
+    int getArea() {
+        return l * b;
+    }
+};
+
+int main() {
+    Box a;
+    Box b(3);
+    Box c(4,5);
+
+    cout << a.getArea() << endl;
+    cout << b.getArea() << endl;
+    cout << c.getArea() << endl;
+
+    return 0;
+}
